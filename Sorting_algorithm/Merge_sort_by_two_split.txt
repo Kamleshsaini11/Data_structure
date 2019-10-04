@@ -1,0 +1,93 @@
+import java.util.*;
+import java.io.*;
+class Mergesort {
+    public static void main(String args[]) throws IOException {
+        Scanner obj = new Scanner(System.in);
+        File f=new File("File8.txt");
+        Scanner sc=new Scanner(f);
+        int n=0;
+        while(sc.hasNextInt())
+        {
+        sc.nextInt();
+        n++;
+        }
+        sc.close();
+        File f1=new File("File8.txt");
+        Scanner sc1=new Scanner(f1);
+        int arr[]=new int[n];
+        int i=0;
+        while(sc1.hasNextInt())
+        {
+        arr[i]=sc1.nextInt();
+        i++;
+        }
+        int b = 0, c = n - 1;
+        Sorting obj1 = new Sorting();
+        long startTime=System.nanoTime();
+        obj1.sort(arr, b, c);
+        long endTime=System.nanoTime();
+        long Sorting_time = (endTime-startTime)/1000;
+        long startTime1=System.nanoTime();
+        obj1.sort(arr, b, c);
+        long endTime1=System.nanoTime();
+        long Sorting_time1 = (endTime1-startTime1)/1000;
+        int arr1[]=new int[n];
+        int j=0;
+        for(i=n-1;i>=0;i--)
+        {
+             arr1[j]=arr[i];
+             j++;
+        }
+        long startTime2=System.nanoTime();
+        obj1.sort(arr1, b, c);
+        long endTime2=System.nanoTime();
+        long Sorting_time2 = (endTime2-startTime2)/1000;
+        System.out.println("Sorting time of average case "+Sorting_time);
+        System.out.println("Sorting time of best case "+Sorting_time1);
+        System.out.println("Sorting time of worst case "+Sorting_time2);
+    }
+}
+
+class Sorting {
+    public void sort(int arr[], int low, int high) {
+        if (low < high) {
+            int center = (low + high) / 2;
+            sort(arr, low, center);
+            sort(arr, center + 1, high);
+            merge(arr, low, center + 1, high);
+        }
+    }
+
+    public void merge(int arr[], int leftpos, int rightpos, int rightend) {
+        int leftend = rightpos - 1;
+        int pos = leftpos;
+        int temp[] = new int[rightend + 1];
+        int size = 0;
+        while (leftpos <= leftend && rightpos <= rightend) {
+            if (arr[rightpos] > arr[leftpos]) {
+                temp[size] = arr[leftpos];
+                leftpos++;
+                size++;
+            } else {
+                temp[size] = arr[rightpos];
+                rightpos++;
+                size++;
+            }
+        }
+        while (leftpos <= leftend) {
+            temp[size] = arr[leftpos];
+            leftpos++;
+            size++;
+        }
+        while (rightpos <= rightend) {
+            temp[size] = arr[rightpos];
+            rightpos++;
+            size++;
+        }
+        int i;
+        for (i = 0; i < size; i++) {
+            arr[pos] = temp[i];
+            pos++;
+        }
+    }
+}

@@ -1,0 +1,48 @@
+import java.util.Scanner;
+import java.lang.String;
+class Quicksort {
+    public static void main(String args[]) {
+        Scanner obj = new Scanner(System.in);
+        System.out.println("Enter the length of array and its elements - ");
+        int size = obj.nextInt();
+        int arr[] = new int[size];
+        for (int i = 0; i < size; i++)
+            arr[i] = obj.nextInt();
+        Sorting obj1 = new Sorting();
+        int first = 0, last = size - 1;
+        obj1.sort(arr, first, last);
+        int j;
+        for (j = 0; j < size; j++) {
+            System.out.print(arr[j] + " ");
+        }
+    }
+}
+
+class Sorting {
+    public int partition(int arr[], int first, int last) {
+        int pivotindex = first;
+        int lasts1 = first, temp, firstunknow = lasts1 + 1;
+        for (int i = firstunknow; i <= last; i++) {
+            if (arr[i] < arr[pivotindex]) {
+                lasts1++;
+                temp = arr[lasts1];
+                arr[lasts1] = arr[i];
+                arr[i] = temp;
+            }
+        }
+        temp = arr[lasts1];
+        arr[lasts1] = arr[pivotindex];
+        arr[pivotindex] = temp;
+        pivotindex = lasts1;
+        return pivotindex;
+    }
+
+    public void sort(int arr[], int first, int last) {
+        int pivotindex;
+        if (first < last) {
+            pivotindex = partition(arr, first, last);
+            sort(arr, first, pivotindex - 1);
+            sort(arr, pivotindex + 1, last);
+        }
+    }
+}

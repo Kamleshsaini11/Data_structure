@@ -1,0 +1,28 @@
+import java.util.*;
+class Seletionsort {
+    public static void main(String args[]) {
+        Scanner scan = new Scanner(System.in);
+        int i=0, j=0, temp=0,n=0;
+        System.out.println("Enter the size of array and its elements - ");
+        n=scan.nextInt();
+        int arr[] = new int[n];
+        for (i = 0; i < n; i++)
+            arr[i] = scan.nextInt();
+        for (i = 0; i < n; i++) {
+            int smallest = i;
+            for (j = i + 1; j < n; j++) {
+                if (arr[j] < arr[smallest])
+                    smallest = j;
+            }
+            if (i != smallest) {
+                temp = arr[i];
+                arr[i] = arr[smallest];
+                arr[smallest] = temp;
+            }
+        }
+        System.out.println("Sorted array is here");
+        for (i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
