@@ -1,0 +1,158 @@
+// By divide and conqure
+
+import java.util.*;
+import java.lang.Math;
+class Multi_Di_Co
+{
+    public static void main(String args[])
+    {
+        Scanner scan=new Scanner(System.in);
+        // Input two number, here we take input in string instead of int 
+        System.out.print("Enter two number- ");
+        String a="",b="";
+        a=scan.nextLine();
+        // if user give input in a single line than we split input two string(line 13 to 35)
+        int j=0,n=0,f=0;
+        while(j<a.length())
+        {
+            if (a.charAt(j)==' ')
+            {
+                f=1;
+                break;
+            }
+            j++;
+        }
+        j=0;
+        if (f==1)
+        {
+            String[] s=a.split(" ",2);
+            a=s[0];
+            while(s[1].charAt(j)==' ')
+            {
+                 j++; n++;
+            }
+            b=s[1].substring(n,s[1].length());
+        }
+        else 
+           b=scan.nextLine();
+        Multi_Di_Co obj=new Multi_Di_Co();
+        String m=obj.Multi(a,b);
+        j=0; n=0;
+        // If ans string like 0000001425363.... , for remove this zeros
+        while(j<m.length()&&m.charAt(j)=='0')
+        {
+            n++;  j++;
+        }
+       if (n==m.length())       // If one value either a or b is 0 than ans string will contain only 0 and n will be equal to length of ans string 
+           System.out.print("0");
+        else 
+           System.out.print(m.substring(n,m.length()));
+    }
+    String Multi(String str1,String str2)
+    {
+        int j=0;
+        String t="0";
+        int len1=str1.length();
+        int len2=str2.length();
+        // For doing both string same size
+        if (len1>len2)
+        {
+            for(j=0;j<(len1-len2);j++)
+               str2=t+str2;
+        }
+        else
+        {
+            for(j=0;j<(len2-len1);j++)
+               str1=t+str1;
+        } 
+        int len=str1.length()-1;
+        // Base case
+        if (len==0)
+        {
+           int a=str1.charAt(0)-48;
+           int b=str2.charAt(0)-48;
+           return String.valueOf(a*b);
+        }
+        String al=str1.substring(0,(len/2)+1);
+        String ar=str1.substring((len/2)+1,len+1);
+        String bl=str2.substring(0,(len/2)+1);
+        String br=str2.substring((len/2)+1,len+1);
+        // recursively calls
+        String p1=Multi(al,bl);
+        String p2=Multi(al,br);
+        String p3=Multi(ar,bl);
+        String p4=Multi(ar,br);
+        // p=p1*10^len+(p2+p3)*10^(len/2)+p4  like that 
+        if (len%2==0)
+        {
+           for(j=0;j<len;j++)
+              p1=p1+t;
+           for(j=0;j<len/2;j++)
+           {
+              p2=p2+t;
+              p3=p3+t;
+           }
+        }
+        else
+        {
+           for(j=0;j<=len;j++)
+               p1=p1+t;
+           for(j=0;j<(len+1)/2;j++)
+           {
+               p2=p2+t;
+               p3=p3+t;
+           }   
+        } 
+        // Doing same size of all four string 
+        int l1=p1.length();  int l2=p2.length();   int l3=p3.length();   int l4=p4.length();
+        if (l1>=l2&&l1>=l3&&l1>=l4)
+        {
+            for(j=0;j<(l1-l2);j++)
+                p2=t+p2;
+            for(j=0;j<(l1-l3);j++)
+                p3=t+p3;
+            for(j=0;j<(l1-l4);j++)
+                p4=t+p4;
+        }
+        else if (l2>=l1&&l2>=l3&&l2>=l4)
+        {
+            for(j=0;j<(l2-l1);j++)
+                p1=t+p1;
+            for(j=0;j<(l2-l3);j++)
+                p3=t+p3;
+            for(j=0;j<(l2-l4);j++)
+                p4=t+p4;
+        }
+        else if (l3>=l2&&l3>=l2&&l3>=l4)
+        {
+            for(j=0;j<(l3-l1);j++)
+                p1=t+p1;
+            for(j=0;j<(l3-l2);j++)
+                p2=t+p2;
+            for(j=0;j<(l3-l4);j++)
+                p4=t+p4;
+        }
+        else
+        {
+            for(j=0;j<(l4-l1);j++)
+                p1=t+p1;
+            for(j=0;j<(l4-l2);j++)
+                p2=t+p2;
+            for(j=0;j<(l4-l3);j++)
+                p3=t+p3;
+        }
+        // Addtion of all string
+        String temp="";
+        String s="";
+        int carry=0,num=0;
+        for(j=p1.length()-1;j>=0;j--)
+        {
+             num=p1.charAt(j)+p2.charAt(j)+p3.charAt(j)+p4.charAt(j)+carry-192;
+             s=String.valueOf(num%10);
+             temp=s+temp;
+             carry=num/10;
+        }
+        temp=String.valueOf(carry)+temp;
+        return temp;   
+    }
+}
