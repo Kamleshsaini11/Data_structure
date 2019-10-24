@@ -1,0 +1,55 @@
+import java.lang.String;
+import java.util.*;
+class Sub_pali_dp_dt
+{
+   String p[][]=new String[1][1];
+   Sub_pali_dp_dt(int n)
+   {
+      String[][] arr=new String[n+1][n+1];
+       for(int i=0;i<=n;i++)
+          for(int j=0;j<=n;j++)
+             arr[i][j]="";
+       p=arr;
+   }
+   public String pali_sub(String str)
+    {
+        for(int L=1;L<=str.length();L++)                   // For length
+        {
+            for(int k=0;k<str.length()-L+1;k++)
+            {
+                int i=k,j=k+L-1;
+                if (i==j)
+                   p[i][j]=Character.toString(str.charAt(i));
+                else
+                {
+                    if (str.charAt(i)==str.charAt(j))
+                    {
+                       if (j-1>i+1)
+                           p[i][j] =Character.toString(str.charAt(i))+p[i+1][j-1]+Character.toString(str.charAt(j));
+                       else 
+                           p[i][j] =Character.toString(str.charAt(i))+Character.toString(str.charAt(j));
+                    }
+                    else
+                    {
+                        String str1=p[i+1][j];
+                        String str2=p[i][j-1];
+                        if (str1.length()>str2.length())
+                           p[i][j]=str1;
+                        else
+                           p[i][j]=str2;
+                    }
+                }
+            }
+        }
+        return p[0][str.length()-1];
+    }
+    public static void main(String args[])
+    {
+        Scanner scan=new Scanner(System.in);
+        System.out.println("Enter String");
+        String str=scan.nextLine();
+        Sub_pali_dp_dt obj=new Sub_pali_dp_dt(str.length());
+        str=obj.pali_sub(str);
+        System.out.print("Longest palindrome subsequence is "+str);
+    }
+}
