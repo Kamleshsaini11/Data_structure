@@ -1,1 +1,0 @@
-naive top-down recursive algorithm to compute nth Fibonacci number.
