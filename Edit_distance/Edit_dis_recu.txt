@@ -1,0 +1,53 @@
+import java.lang.String;
+import java.util.*;
+import java.lang.*;
+class Edit_dis_recu
+{
+    public static int Req_edits(String str1,String str2,int l1,int l2)
+    {
+        if (l1<0||l2<0)
+            return Math.abs(l1-l2);
+        else if (str1.charAt(l1)==str2.charAt(l2))
+            return Req_edits(str1,str2,l1-1,l2-1);
+        else
+        {
+            String temp1="",temp2="",temp3="";
+            // Insert
+            temp1=str1+Character.toString(str2.charAt(l2));
+            int a=1+Req_edits(temp1,str2,l1,l2-1);
+            // Deletion
+            temp2=str1.substring(0,l1)+str1.substring(l1+1,str1.length());
+            int b=1+Req_edits(temp2,str2,l1-1,l2);
+            // change
+            temp3=str1.substring(0,l1)+Character.toString(str2.charAt(l2))+str1.substring(l1+1,str1.length());
+            int c=1+Req_edits(temp3,str2,l1-1,l2-1);
+            int min=0;
+            if (a<=b&&a<=c)
+            {
+                min=a;
+                str1=temp1;
+            }
+            else if (b<=a&&b<=c)
+            {
+                min=b;
+                str1=temp2;
+            }
+            else
+            {
+                min=c;
+                str1=temp3;
+            }
+            return min;
+        } 
+        
+    }
+    public static void main(String args[])
+    {
+        Scanner scan=new Scanner(System.in);
+        System.out.println("Enter two string");
+        String str1=scan.nextLine();
+        String str2=scan.nextLine();
+        int ans=Req_edits(str1,str2,str1.length()-1,str2.length()-1);
+        System.out.print("Minimum number of edting required is "+ans);
+    }
+}

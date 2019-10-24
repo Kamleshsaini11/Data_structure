@@ -1,0 +1,71 @@
+/* ------Methodology-------
+   lets assume n=4
+   then out String array will be
+   000   Means we are not making any cut
+   001   Means our first cut is at length 1 and no other cut made
+   010   Means our first cut is at length 1 and no other cut made
+   011   Means our first cut is at length 1 ,second cut at length 2 and no other cut made
+   111   means we cut all rod with length 1
+   Above are the all possible way to cut rod for n=4
+   All of above string we can find out by binary representation of number form 0 to 2^(n-2)-1
+*/
+import java.lang.String;
+import java.lang.*;
+import java.util.*;
+class Rod_cutting_itr
+{
+    public static int Rod_cut(int[] p,int n)
+    {
+        int size=(int)(Math.pow(2,n-1));  // Total number of way to cut n length rod and typecasting for convert double to int
+        size=size/2;     // After size/2 subsequence will be repeted , so we go upto size/2 
+        String str[]=new String[size+1];
+        int sub_str_len=n-1;
+        int i=0,k=0;         
+        while(i<2*size)
+        {
+            String s="";
+            int a=i,count=0;
+            while(a>0)
+            {
+                s=String.valueOf(a%2)+s;
+                a=a/2;
+                count++;
+            }
+            for(int j=count;j<sub_str_len;j++)
+                s="0"+s;
+            str[k]=s;
+            i++;  k++;
+            if (i==size)
+               i=2*size-1;
+        }
+        int max=0;
+        for(i=0;i<size;i++)
+        {
+            int price=0,pri=0,count=0;
+            String s=str[i];
+            k=1;
+            for(int j=s.length()-1;j>=0;j--)
+            {
+                if (s.charAt(j)=='1')
+                {
+                    price=price+p[k-pri];
+                    pri=k;
+                }
+                k++;
+            }
+            price=price+p[k-pri];
+            if (price>max)
+               max=price;
+        }
+        return max;
+    }
+    public static void main(String args[])
+    {
+        int p[]={0,1,5,8,9,10,17,17,20};  // price array
+        Scanner scan=new Scanner(System.in);
+        System.out.println("Enter the length of rod");
+        int n=scan.nextInt();
+        int ans=Rod_cut(p,n);
+        System.out.print("Maximum revanue for given length rod is "+ans);
+    }
+}

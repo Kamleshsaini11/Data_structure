@@ -1,0 +1,48 @@
+import java.lang.String;
+import java.util.*;
+class Sub_pali_itr
+{
+    public static String Subsequence(String strn)
+    {
+        int len=strn.length();
+        int sub=(int)(Math.pow(2,len));  // number of subsequence 
+        String str[]=new String[sub];      
+        for(int i=0;i<sub;i++)
+        {
+            String s="";
+            int a=i,count=0;
+            while(a>0)
+            {
+                if (a%2==1)
+                   s=Character.toString(strn.charAt(len-count-1))+s;
+                a=a/2;
+                count++;
+            }
+            str[i]=s;
+        }
+        int max=Integer.MIN_VALUE;
+        String ans_str="";
+        for(int i=0;i<sub;i++)
+        {
+            StringBuilder sb = new StringBuilder(str[i]);
+            String s=sb.reverse().toString();
+            if (s.equals(str[i]))
+            {
+                if (str[i].length()>max)
+                {
+                   max=str[i].length();
+                   ans_str=str[i];
+                }
+            }
+        }
+        return ans_str;
+    }
+    public static void main(String args[])
+    {
+        Scanner scan=new Scanner(System.in);
+        System.out.println("Enter String");
+        String str=scan.nextLine();
+        str=Subsequence(str);
+        System.out.print("Longest palindrome subsequence is "+str);
+    }
+}

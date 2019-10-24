@@ -1,0 +1,45 @@
+import java.lang.String;
+import java.util.*;
+class Sub_pali_dp_td
+{
+   String p[][]=new String[1][1];
+   Sub_pali_dp_td(int n)
+   {
+      String[][] arr=new String[n+1][n+1];
+       for(int i=0;i<=n;i++)
+          for(int j=0;j<=n;j++)
+             arr[i][j]="";
+       p=arr;
+   }
+   public String pali_sub(String str,int i,int j)
+    {
+        if (p[i][j]=="")
+        {
+           if (i>j)
+              p[i][j] ="";
+           else if (i==j)
+              p[i][j]=Character.toString(str.charAt(i));
+           else if (str.charAt(i)==str.charAt(j))
+              p[i][j] =Character.toString(str.charAt(i))+pali_sub(str,i+1,j-1)+Character.toString(str.charAt(j));
+           else
+           {
+              String str1=pali_sub(str,i+1,j);
+              String str2=pali_sub(str,i,j-1);
+              if (str1.length()>str2.length())
+                 p[i][j]=str1;
+              else
+                 p[i][j]=str2;
+           }
+         }
+         return p[i][j];
+    }
+    public static void main(String args[])
+    {
+        Scanner scan=new Scanner(System.in);
+        System.out.println("Enter String");
+        String str=scan.nextLine();
+        Sub_pali_dp_td obj=new Sub_pali_dp_td(str.length());
+        str=obj.pali_sub(str,0,str.length()-1);
+        System.out.print("Longest palindrome subsequence is "+str);
+    }
+}

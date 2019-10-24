@@ -1,0 +1,26 @@
+import java.lang.String;
+import java.util.*;
+class Rod_cutting_recu
+{
+    public static int Rod_cut(int[] p,int n)
+    {
+        if (n==0)
+           return 0;
+        int max=Integer.MIN_VALUE;
+        for(int i=1;i<=n;i++)
+        {
+            int a=p[i]+Rod_cut(p,n-i);
+            max=max>a?max:a;
+        }
+        return max;
+    } 
+    public static void main(String args[])
+    {
+        int p[]={0,1,5,8,9,10,17,17,20};  // price array
+        Scanner scan=new Scanner(System.in);
+        System.out.println("Enter the length of rod");
+        int n=scan.nextInt();
+        int ans=Rod_cut(p,n);
+        System.out.print("Maximum revanue for given length rod is "+ans);
+    }
+}

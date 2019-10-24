@@ -1,0 +1,54 @@
+import java.lang.String;
+import java.util.*;
+class Matrix_chain_recu
+{
+    int bracket[][]=new int[1][1];
+    Matrix_chain_recu(int n)
+    {
+        int arr[][]=new int[n+1][n+1];
+        for(int i=0;i<n+1;i++)
+           for(int j=0;j<n+1;j++)
+               arr[i][j]=0;
+        bracket=arr;
+    } 
+    public int pare_Mat(int[] p,int i,int j)
+    {
+        if (j-i==0)
+            return 0;
+        int min=Integer.MAX_VALUE;
+        for(int k=i;k<j;k++)
+        {
+            int a=pare_Mat(p,i,k)+pare_Mat(p,k+1,j);
+            a=a+p[i-1]*p[k]*p[j];
+            if (min>a)
+            {
+               min=a;
+               bracket[i][j]=k;
+            }
+        }
+        return min;
+    }
+    public void print(String str,int i,int j)
+    {
+        if (i==j)
+        {
+            System.out.print(str.charAt(i-1));
+            return ;
+        }
+        System.out.print("(");
+        print(str,i,bracket[i][j]);
+        print(str,bracket[i][j]+1,j);   
+        System.out.print(")");
+    }
+    public static void main(String args[])
+    {
+        int p[]={10, 30, 5, 60,4,5,7,10};  // array of dimention(ith arr have p[i-1] row and p[i] column)
+        String str="ABCDEFG";
+        Matrix_chain_recu obj=new Matrix_chain_recu(str.length());
+        int ans=obj.pare_Mat(p,1,7);
+        System.out.print("Parenthesization in given matrix chain is ");
+        obj.print(str,1,str.length());
+        System.out.println("");
+        System.out.print("Minimum number of multiplication is "+ans);
+    }
+}
