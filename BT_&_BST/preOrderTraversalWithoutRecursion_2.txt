@@ -1,9 +1,10 @@
+// ~~~~~~~~~~ method 2 for preorder traversal using stack~~~~~~~~~~~~
 import java.util.*;
 class BST2
 {
     static Node head;
     BST2()
-    {
+    
         head=null;
     }
     public void add(int x)
