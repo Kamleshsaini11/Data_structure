@@ -40,7 +40,7 @@ class BST2
             }
             else
             {
-                System.out.print(n.data+" ");
+                System.out.print(n.data+" ");    // these two line(43 and 44) is only different from postorder traversal
                 s.pop();
                 s.add(n.right);
                 n.right=null;
