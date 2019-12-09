@@ -1,0 +1,63 @@
+import java.util.*;
+class BST2
+{
+    static Node head;
+    BST2()
+    {
+        head=null;
+    }
+    public void add(int x)
+    {
+        Node n=new Node(x);
+        head=insert(head,n);
+    }
+    public Node insert(Node node,Node n)
+    {
+        if (node==null)
+            return n;
+        else if (node.data>n.data)
+            node.left=insert(node.left,n);
+        else
+            node.right=insert(node.right,n);
+        return node;
+    }
+    public void Inorder(Node node)
+    {
+        Stack<Node> s=new Stack<Node>();
+        s.push(node);
+        while(!s.isEmpty())
+        {
+            Node n=s.peek();
+            if (n.left==null&&n.right==null)
+            {
+                System.out.print(n.data+" ");
+                s.pop();
+            }
+            else if (n.left!=null)
+            {
+                s.add(n.left);
+                n.left=null;
+            }
+            else
+            {
+                System.out.print(n.data+" ");    // these two line(43 and 44) is only different from postorder traversal
+                s.pop();
+                s.add(n.right);
+                n.right=null;
+            }
+        }
+    }
+    public static void main(String args[])
+    {
+        Scanner scan=new Scanner(System.in);
+        BST2 obj=new BST2();
+        obj.add(20);        
+        obj.add(10);
+        obj.add(30);
+        obj.add(7);
+        obj.add(12);
+        obj.add(25);
+        obj.add(23);
+        obj.Inorder(head);
+    }
+}
