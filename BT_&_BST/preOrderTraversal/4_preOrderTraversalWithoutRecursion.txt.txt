@@ -1,0 +1,23 @@
+// ~~~~~~~~~~ method 4 for preorder traversal using stack~~~~~~~~~~~~
+    public void preorder(Node node)
+    {
+        Stack<Node> s=new Stack<Node>();
+        s.push(node);
+        while(!s.isEmpty())
+        {
+            Node n=s.pop();
+            System.out.print(n.data+" ");
+            if (n.right!=null)
+            {
+                s.add(n.right);
+                n.right=null;
+            }
+            if (n.left!=null)
+            {
+                s.add(n.left);
+                n.left=null;
+            }
+        }
+    }
+    
+}

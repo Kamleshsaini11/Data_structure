@@ -1,0 +1,14 @@
+public void preorder(Node node)
+    {
+        Stack<Node> s=new Stack<Node>();
+        s.add(node);
+        while(!s.isEmpty())
+        {
+            Node n=s.pop();
+            System.out.print(n.data+" ");
+            if (n.right!=null)
+               s.add(n.right);
+            if (n.left!=null)
+               s.add(n.left);
+        }
+    }
