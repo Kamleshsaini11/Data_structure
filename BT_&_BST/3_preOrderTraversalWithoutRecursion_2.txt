@@ -1,4 +1,4 @@
-// ~~~~~~~~~~ method 2 for preorder traversal using stack~~~~~~~~~~~~
+// ~~~~~~~~~~ method 3 for preorder traversal using stack~~~~~~~~~~~~
 import java.util.*;
 class BST2
 {
