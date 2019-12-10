@@ -1,0 +1,69 @@
+// level order traversal using height of tree
+import java.util.*;
+class BST2
+{
+    static Node head;
+    BST2()
+    {
+        head=null;
+    }
+    public void add(int x)
+    {
+        Node n=new Node(x);
+        head=insert(head,n);
+    }
+    public Node insert(Node node,Node n)
+    {
+        if (node==null)
+            return n;
+        else if (node.data>n.data)
+            node.left=insert(node.left,n);
+        else
+            node.right=insert(node.right,n);
+        return node;
+    }
+    public int tree_height(Node node)     // for find out height of tree
+    {
+        if (node==null)
+            return 0;
+        else
+        {
+            int a=tree_height(node.left)+1;
+            int b=tree_height(node.right)+1;
+            return a>b?a:b;
+        }
+    }
+    public void LevelOrder(int h)             // level order traversal using height
+    {
+        for(int i=1;i<=h;i++)
+        {
+            Lotraverse(head,i);
+            System.out.println("");
+        }    
+    }
+    public void Lotraverse(Node node,int level)
+    {
+        if (node==null)
+           return ;
+        else if (level==1)
+           System.out.print(node.data+" ");
+        else{
+            Lotraverse(node.left,level-1);
+            Lotraverse(node.right,level-1);
+        }
+    }
+    public static void main(String args[])
+    {
+        Scanner scan=new Scanner(System.in);
+        BST2 obj=new BST2();
+        obj.add(20);        
+        obj.add(10);
+        obj.add(30);
+        obj.add(7);
+        obj.add(12);
+        obj.add(25);
+        obj.add(23);
+        int h=obj.tree_height(head);
+        obj.LevelOrder(h);
+    }
+}

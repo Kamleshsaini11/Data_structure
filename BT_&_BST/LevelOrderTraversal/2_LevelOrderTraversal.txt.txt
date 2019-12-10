@@ -1,0 +1,15 @@
+// level order traversal using queue
+public void level_order_traverse(Node head)
+    {
+        Queue q=new LinkedList();
+        q.add(head);
+        while(!q.isEmpty())
+        {
+            Node n=q.poll();
+            if (n.left!=null)
+               q.add(n.left);
+            if (n.right!=null)
+               q.add(n.right);
+            System.out.print(n.data+" ");
+        }
+    }
