@@ -1,0 +1,51 @@
+import java.util.*;
+class Main
+{
+    static Node head;
+    Main()
+    {
+        head=null;
+    }
+    public void add(int x)
+    {
+        Node n=new Node(x);
+        head=insert(head,n);
+    }
+    public Node insert(Node node,Node n)
+    {
+        if (node==null)
+            return n;
+        else if (node.data>n.data)
+            node.left=insert(node.left,n);
+        else
+            node.right=insert(node.right,n);
+        return node;
+    }
+    public void Inorder(Node node)
+    {
+        if (node==null)
+           return ;
+        else
+        {
+            Inorder(node.left);
+            System.out.print(node.data+" ");
+            Inorder(node.right);
+        }
+    }
+    public static void main(String args[])
+    {
+        Scanner scan=new Scanner(System.in);
+        Main obj=new Main();
+        obj.add(20);        
+        obj.add(10);
+        obj.add(30);
+        obj.add(7);
+        obj.add(12);
+        obj.add(25);
+        obj.add(23);
+        // obj.add(1);
+        // obj.add(15);
+        // obj.add(24);
+        obj.Inorder(head);
+    }
+}
