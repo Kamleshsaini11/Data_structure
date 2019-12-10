@@ -1,0 +1,30 @@
+public void postorder(Node node)             // Inorder using one stack
+    {
+        Stack<Node> s=new Stack<Node>();
+        //Stack<Node> s2=new Stack<Node>();
+        Node curr=node;
+        while(curr!=null||!s.isEmpty())
+        {
+            if (curr!=null)
+            {
+                s.add(curr);
+                curr=curr.left;
+            }
+            else
+            {
+                Node temp=s.peek();
+                if (temp.right==null)
+                {
+                   System.out.print(temp.data+" ");
+                   s.pop();
+                   while(!s.isEmpty()&&temp==s.peek().right)
+                   {
+                       temp=s.pop();
+                       System.out.print(temp.data+" ");
+                   }
+                }
+                else
+                   curr=temp.right;
+            }
+        }
+    }
