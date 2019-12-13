@@ -1,0 +1,103 @@
+//~~~~~~~ Min heap  ~~~~~~~~~
+import java.util.*;
+public class MinHeap
+{
+    int[] arr;
+    int size;
+    Main()
+    {
+        size=0;
+        arr=new int[5];
+    }
+    public int[] double_lenght(int[] arr)
+    {
+        int len=arr.length;
+        int[] arr1=new int[2*len];
+        for(int i=0;i<len;i++)
+           arr1[i]=arr[i];
+        return arr1;
+    }
+    public void heapfy(int[] arr,int pos)           // pos tells that form which node we need to do heapfy
+    {
+        boolean bool=true;
+        int i=pos;
+        while(bool)
+        {
+            if (2*i<=size&&2*i+1<=size&&(arr[i]>arr[2*i]||arr[i]>arr[2*i+1]))
+            {
+                if (arr[2*i]<arr[2*i+1])
+                {
+                    int a=arr[2*i];
+                    arr[2*i]=arr[i];
+                    arr[i]=a;
+                    i=2*i;
+                }
+                else
+                {
+                    int a=arr[2*i+1];
+                    arr[2*i+1]=arr[i];
+                    arr[i]=a;
+                    i=2*i+1;
+                }
+            }
+            else if (2*i<=size&&2*i+1>size&&arr[2*i]>arr[i])
+            {
+                int a=arr[2*i];
+                arr[2*i]=arr[i];
+                arr[i]=a;
+                i=2*i;
+            }
+            else
+               bool=false;
+        }
+    }
+    public int getmin()
+    {
+        return arr[1];
+    }
+    public void extractmin()
+    {
+        arr[1]=arr[size];
+        size--;
+        heapfy(arr,1);
+    }
+    public void insert(int val)
+    {
+        arr[size+1]=val;
+        size++;
+        int i=size;
+        while(i>1&&arr[i/2]>arr[i])
+        {
+            int a=arr[i/2];
+            arr[i/2]=arr[i];
+            arr[i]=a;
+            i=i/2;
+        }
+        if (size+1==arr.length)
+            arr=double_lenght(arr);
+    }
+    public void delete(int pos)
+    {
+        if (pos>size)
+           System.out.println("Please enter write position");
+        else
+        {
+           arr[pos]=arr[size];
+           size--;
+           heapfy(arr,pos);
+        }
+    }
+	public static void main(String[] args) {
+	    MinHeap obj=new MinHeap();
+	    obj.insert(56);
+	    obj.insert(13);
+	    obj.insert(46);
+	    obj.insert(23);
+	    obj.insert(5);
+	    obj.insert(1);
+	    obj.delete(2);
+	    obj.extractmin();
+	    for(int i=1;i<=4;i++)
+	       System.out.print(obj.arr[i]+" ");
+	}
+}
