@@ -4,15 +4,14 @@ using namespace std;
 
 void create_seg_tree(int st[],int prefix_sum[],int pos,int i,int j)
 {
-   //cout<<"hello"<<endl;
-   if (i>0)
-     st[pos]=prefix_sum[j]-prefix_sum[i-1];
-   else
-     st[pos]=prefix_sum[j];
-    if (i==j)
+   if (i==j)
+    {
+       st[pos]=arr[i];
        return ;
-    create_seg_tree(st,prefix_sum,2*pos,i,(i+j)/2);
-    create_seg_tree(st,prefix_sum,2*pos+1,(i+j)/2+1,j);
+    }
+    create_seg_tree(st,arr,2*pos,i,(i+j)/2);
+    create_seg_tree(st,arr,2*pos+1,(i+j)/2+1,j);
+    st[pos]=st[2*pos]+st[2*pos+1];
 }
 
 int sum(int st[],int pos,int ql,int qr,int i,int j)
