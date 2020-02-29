@@ -1,4 +1,4 @@
-// Segment tree
+// Segment tree(querie - sum of given array element from given length l to r (inclusive))
 #include<bits/stdc++.h>
 using namespace std;
 
