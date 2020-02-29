@@ -1,4 +1,4 @@
-// Brust force approch for shortest path b/w single source and single destination
+// Brust force approch for shortest path b/w single source and single destination(dp)
 #include<bits/stdc++.h>
 using namespace std;
 
