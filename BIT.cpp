@@ -29,7 +29,6 @@ int getPrefixSum(int bit[],int pos){
 
 int main()
 {
-   _fast_;
    int arr[]={0,3,2,-1,6,5,4,-3,3,7,2,3};
    int bit[12];
    memset(bit,0,sizeof(bit));
