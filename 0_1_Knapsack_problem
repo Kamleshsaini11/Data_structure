@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	//code
+	int t=0;
+	cin>>t;
+	while(t--){
+	    int n=0,w=0;
+	    cin>>n>>w;
+	    int val[n],wt[n];
+	    memset(val,0,sizeof(val));
+	    memset(wt,0,sizeof(wt));
+	    for(int i=0;i<n;i++)
+	       cin>>val[i];
+	    for(int j=0;j<n;j++)
+	       cin>>wt[j];
+	    int arr[n][w+1];
+	    memset(arr,0,sizeof(arr));
+	    for(int i=0;i<n;i++){
+	        for(int j=1;j<=w;j++){
+	            if (j<wt[i]){
+	                if (i>0)
+	                   arr[i][j]=arr[i-1][j];
+	            }
+	            else{
+	                // include
+	                if (i>0)
+	                   arr[i][j]=max(val[i]+arr[i-1][j-wt[i]],arr[i-1][j]);
+	                else
+	                   arr[i][j]=val[i];
+	            } 
+	        }
+	    }
+	   // for(int i=0;i<n;i++){
+	   //     for(int j=0;j<=w;j++)
+	   //        cout<<arr[i][j]<<" ";
+	   //     cout<<endl;
+	   // }
+	    cout<<arr[n-1][w]<<endl;
+	}
+	return 0;
+}
